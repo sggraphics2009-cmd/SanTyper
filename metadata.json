@@ -1,0 +1,6 @@
+{
+  "name": "Sinhala Font Converter",
+  "description": "A high-accuracy client-side web application to convert between Sinhala Unicode and legacy DL-Manel, Apex, and FM-Abaya font layouts. Created and engineered by Sanchitha Charunya.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,46 @@
+name: SanTyper Production CI/CD Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci || npm install --legacy-peer-deps
+
+      - name: Build Web Application
+        run: npm run build
+
+      # Note: If Netlify GitHub App is installed in user's Netlify account,
+      # Netlify automatically builds and deploys to santyper.netlify.app without needing tokens here!
+      # If manual Netlify CLI token is supplied in GitHub Secrets:
+      - name: Deploy to Netlify (Optional token-based runner)
+        if: env.NETLIFY_AUTH_TOKEN != '' && env.NETLIFY_SITE_ID != ''
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npx netlify-cli deploy --prod --dir=dist --site=santyper || echo "Netlify CLI deploy skipped"
+
+      # Optional Firebase Hosting Deploy via Action if token supplied
+      - name: Deploy to Firebase Hosting (Optional token-based runner)
+        if: env.FIREBASE_TOKEN != ''
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          npx firebase-tools deploy --only hosting --token "$FIREBASE_TOKEN" || echo "Firebase deploy skipped"

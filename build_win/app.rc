@@ -1,0 +1,34 @@
+#include <windows.h>
+
+1 24 "app.manifest"
+IDI_APP_ICON ICON "logo.ico"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+FILEFLAGSMASK   VS_FFI_FILEFLAGSMASK
+FILEFLAGS       0
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_APP
+FILESUBTYPE     VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN
+            VALUE "CompanyName",      "Sanchitha Charunya\0"
+            VALUE "FileDescription",  "SanTyper Pro Suite - Sinhala Font Converter & KeyHelper\0"
+            VALUE "FileVersion",      "1.0.0.0\0"
+            VALUE "InternalName",     "SanTyper\0"
+            VALUE "LegalCopyright",   "Copyright (C) 2026 Sanchitha Charunya. All Rights Reserved.\0"
+            VALUE "OriginalFilename", "SanTyper.exe\0"
+            VALUE "ProductName",      "SanTyper Pro Suite\0"
+            VALUE "ProductVersion",   "1.0.0.0\0"
+            VALUE "Comments",         "100% Safe, Verified & Legal Sinhala Converter & Floating KeyHelper Suite by Sanchitha Charunya\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1252
+    END
+END

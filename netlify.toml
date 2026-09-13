@@ -1,0 +1,78 @@
+# ==============================================================================
+# SANTYPER PRO - NETLIFY PRODUCTION DEPLOYMENT & SUPERFAST CDN CONFIGURATION
+# Site Name: santyper.netlify.app
+# Architect: Sanchitha Charunya
+# ==============================================================================
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# ------------------------------------------------------------------------------
+# SERVERLESS API REDIRECTS (FOR WORD MACROS & EXTERNAL DEVELOPERS)
+# ------------------------------------------------------------------------------
+[[redirects]]
+  from = "/api/convert"
+  to = "/.netlify/functions/convert"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
+  force = true
+
+# ------------------------------------------------------------------------------
+# SINGLE PAGE APPLICATION (SPA) REDIRECTS
+# Ensures client-side routing & clean deep links work seamlessly
+# ------------------------------------------------------------------------------
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# ------------------------------------------------------------------------------
+# SUPERFAST CDN CACHING & PERFORMANCE HEADERS
+# ------------------------------------------------------------------------------
+
+# 1. Immutable Long-Term Cache for Static Assets (CSS, JS, Fonts, Images)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+# 2. Immutable Cache for Download Binaries (Windows, Mac, Linux, Mobile Apps)
+[[headers]]
+  for = "/download/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+    Access-Control-Allow-Origin = "*"
+    X-Content-Type-Options = "nosniff"
+
+# 3. Fast Revalidation for Entry Point (index.html) so updates reflect instantly
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# 4. Global Security & Modern Web Standard Headers (Allows Microphone for Voice Typing)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(self), geolocation=()"
+

@@ -1,0 +1,18 @@
+{
+  "short_name": "SanTyper",
+  "name": "Sinhala Font Converter & SanTyper Pro",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "display": "standalone",
+  "orientation": "any",
+  "description": "Professional Sinhala Unicode & Legacy Font Converter with KeyRep-style Real-time Typing Helper."
+}

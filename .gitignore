@@ -1,0 +1,17 @@
+node_modules/
+build/
+dist/
+dist_linux/
+dist_mac/
+dist_win/
+build_win/payload/app/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+.host_config.json
+admin_host/.host_config.json
+.netlify/
+.firebase/
+bun.lock
